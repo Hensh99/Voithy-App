@@ -1,4 +1,4 @@
-### Review this code for code structure, adherence to code standards, and documentation. Please review the code for its structure,adherence to code standards, and documentation.Provide feedback on any areas that can be improved, such as error handling, best practices for RESTful API design, security considerations, or any other relevant points.
+### Review this code for code structure, adherence to code standards, and documentation. Please review the code for its structure, adherence to code standards, and documentation. Provide feedback on any areas that can be improved, such as error handling, best practices for RESTful API design, security considerations, or any other relevant points.
 
 ```
 const express = require('express');
@@ -15,14 +15,14 @@ console.error('Error while fetching users:', err);
 res.status(500).json({ error: 'Internal server error' });
 }
 });
-// Route for crea4ng a new user
+// Route for creating a new user
 app.post('/users', (req, res) => {
 try {
 const user = req.body;
 saveUser(user); // Func4on to save user to database
 res.json({ message: 'User created successfully' });
 } catch (err) {
-console.error('Error while crea4ng user:', err);
+console.error('Error while creating user:', err);
 res.status(500).json({ error: 'Internal server error' });
 }
 });
