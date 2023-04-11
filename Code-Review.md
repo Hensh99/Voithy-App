@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 // Route for getting a list of users
 app.get('/users', (req, res) => {
 try {
-const users = getUsers(); // Func4on to fetch users from database
+const users = getUsers(); // Function to fetch users from database
 res.json(users);
 } catch (err) {
 console.error('Error while fetching users:', err);
@@ -19,7 +19,7 @@ res.status(500).json({ error: 'Internal server error' });
 app.post('/users', (req, res) => {
 try {
 const user = req.body;
-saveUser(user); // Func4on to save user to database
+saveUser(user); // Function to save user to database
 res.json({ message: 'User created successfully' });
 } catch (err) {
 console.error('Error while creating user:', err);
