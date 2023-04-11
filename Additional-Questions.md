@@ -1,6 +1,6 @@
 # Additional Questions:
 
-### A. How do you handle errors and exceptions in Node.js applications? Can you explain the different types of error handling mechanisms in Node.js and when to use them?
+### <mark>A.</mark> How do you handle errors and exceptions in Node.js applications? Can you explain the different types of error handling mechanisms in Node.js and when to use them?
 
 <p>1. Synchronous Try/Catch: This is the most common type of error handling mechanism and it is used to catch errors that occur within synchronous code blocks. It works by wrapping code within a try block and then catching any errors that occur within the catch block.
 </p>
@@ -18,7 +18,7 @@
 
 ---
 
-### B. How do you ensure the security of backend applications and APIs developed using Node.js? Can you explain the best practices for securing APIs and handling sensitive data in a health tech startup environment?
+### <mark>B.</mark> How do you ensure the security of backend applications and APIs developed using Node.js? Can you explain the best practices for securing APIs and handling sensitive data in a health tech startup environment?
 
 <p>1.Use authentication and authorization: Authentication is the process of verifying the identity of a user, while authorization is the process of determining what resources a user can access. For Node.js applications, you can use JSON Web Tokens (JWT) for authentication and authorization.
 </p>
@@ -40,7 +40,7 @@
 
 ---
 
-### C. How do you manage dependencies and package management in Node.js applications? Can you explain the differences between npm and yarn, and how you would handle versioning and updating dependencies in a production environment?
+### <mark>C.</mark> How do you manage dependencies and package management in Node.js applications? Can you explain the differences between npm and yarn, and how you would handle versioning and updating dependencies in a production environment?
 
 <p>
 NPM (Node Package Manager) is the default package manager for Node.js applications. It is used to install, update, and manage dependencies in a Node.js application. NPM uses a file called package.json to store information about the project and its dependencies. This file can be used to define the versions of packages that should be installed and updated, as well as any other configuration settings needed for the application.
@@ -54,7 +54,7 @@ NPM (Node Package Manager) is the default package manager for Node.js applicatio
 
 ---
 
-### D. How do you write unit tests for Node.js applications? Can you explain the best practices for writing effective unit tests and how you would ensure good code coverage in your backend applications?
+### <mark>D.</mark> How do you write unit tests for Node.js applications? Can you explain the best practices for writing effective unit tests and how you would ensure good code coverage in your backend applications?
 
 <p>1.Set up a testing framework: The first step to writing unit tests for Node.js applications is to set up a testing framework such as Mocha, Jasmine, or Jest. This will provide the necessary tools for running tests and reporting results.
 </p>
