@@ -5,7 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
-// Route for geEng a list of users
+// Route for getting a list of users
 app.get('/users', (req, res) => {
 try {
 const users = getUsers(); // Func4on to fetch users from database
