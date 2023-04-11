@@ -33,7 +33,7 @@ console.log('Server is running on port 3000');
 
 <mark>Answer:</mark>
 
-#### This code looks good overall. It is using Express and body-parser to create a server and handle requests. It has two routes, one for getting a list of users and one for creating a new user. The code also handles errors gracefully by logging them to the console and responding with an appropriate status code and error message.
+<p>This code looks good overall. It is using Express and body-parser to create a server and handle requests. It has two routes, one for getting a list of users and one for creating a new user. The code also handles errors gracefully by logging them to the console and responding with an appropriate status code and error message.</p>
 
 #### This code is structured well and adheres to code standards. However, there are a few areas that could be improved.
 
