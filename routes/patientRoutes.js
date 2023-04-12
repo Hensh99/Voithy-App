@@ -8,7 +8,7 @@ router.param("id", patientController.checkID);
 router
   .route("/")
   .get(patientController.getAllPatients)
-  .post(patientController.createPatient);
+  .post(patientController.checkBody, patientController.createPatient);
 
 router
   .route("/:id")
