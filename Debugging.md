@@ -20,11 +20,15 @@ app.listen(3000, () => {
 
 <mark>Answer:</mark>
 
+<p>* Error occurred when send get request without one of the keys</p>
+
 ![My Image](images/Error.PNG)
 
-<p>The “[ERR_HTTP_HEADERS_SENT]:  Can't set headers after they are sent to the client” occurs when an express.js application tries to send multiple responses for a single request.</p>
+<p>=> The “[ERR_HTTP_HEADERS_SENT]:  Can't set headers after they are sent to the client” occurs when an express.js application tries to send multiple responses for a single request.</p>
 
-<p>We have to be careful to send only one response for a single request from the node server. The commonly used functions that send responses are res.redirect(), res.render(), res.send() and res.json().</p>
+<p>=> We have to be careful to send only one response for a single request from the node server. The commonly used functions that send responses are res.redirect(), res.render(), res.send() and res.json().</p>
+
+### Check the updated code:
 
 ```Javascript
 const express = require("express");
