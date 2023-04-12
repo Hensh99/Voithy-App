@@ -4,6 +4,17 @@ const patients = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/patients-simple.json`)
 );
 
+exports.checkID = (req, res, next, val) => {
+  console.log(`Patient id is: ${val}`);
+  if (req.params.id * 1 > patients.length) {
+    return res.status(404).json({
+      status: "Failed",
+      message: "Invalid ID",
+    });
+  }
+  next();
+};
+
 exports.getAllPatients = (req, res) => {
   res.status(200).json({
     status: "success",
@@ -20,13 +31,6 @@ exports.getPatient = (req, res) => {
 
   const id = req.params.id * 1; // A trick to convert the id from string to number
   const patient = patients.find((el) => el.id === id); // call back function to compare the element
-
-  if (!patient) {
-    return res.status(404).json({
-      status: "Failed",
-      message: "Invalid ID",
-    });
-  }
 
   res.status(200).json({
     status: "success",
@@ -56,12 +60,6 @@ exports.createPatient = (req, res) => {
 };
 
 exports.updatePatient = (req, res) => {
-  if (req.params.id * 1 > patients.length) {
-    return res.status(404).json({
-      status: "Failed",
-      message: "Invalid ID",
-    });
-  }
   res.status(200).json({
     status: "success",
     data: {
@@ -71,12 +69,6 @@ exports.updatePatient = (req, res) => {
 };
 
 exports.deletePatient = (req, res) => {
-  if (req.params.id * 1 > patients.length) {
-    return res.status(404).json({
-      status: "Failed",
-      message: "Invalid ID",
-    });
-  }
   res.status(204).json({
     // 204: No-Content
     status: "success",
