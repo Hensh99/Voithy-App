@@ -15,6 +15,16 @@ exports.checkID = (req, res, next, val) => {
   next();
 };
 
+exports.checkBody = (req, res, next) => {
+  if (!req.body.name) {
+    return res.status(400).json({
+      status: "Failed",
+      message: "The name is missing",
+    });
+  }
+  next();
+};
+
 exports.getAllPatients = (req, res) => {
   res.status(200).json({
     status: "success",
