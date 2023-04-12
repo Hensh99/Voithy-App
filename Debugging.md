@@ -52,8 +52,12 @@ app.listen(3000, () => {
 
 ---
 
+### Successful Get Request:
+
 ![My Image](images/GET.PNG)
 
 ---
 
-![My Image](images/missed age.PNG)
+### Incomplete data: (When the error occurs in the logs before fixed it)
+
+![My Image](images/missed.PNG)
