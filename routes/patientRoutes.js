@@ -2,6 +2,9 @@ const express = require("express");
 const patientController = require("./../controllers/patientController");
 const router = express.Router();
 
+// Param Middleware
+router.param("id", patientController.checkID);
+
 router
   .route("/")
   .get(patientController.getAllPatients)
