@@ -1,87 +1,91 @@
-const fs = require("fs");
+const Patient = require("./../models/patientModel");
 
-const patients = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/patients-simple.json`)
-);
-
-exports.checkID = (req, res, next, val) => {
-  console.log(`Patient id is: ${val}`);
-  if (req.params.id * 1 > patients.length) {
-    return res.status(404).json({
+exports.getAllPatients = async (req, res) => {
+  try {
+    const patients = await Patient.find();
+    res.status(200).json({
+      status: "success",
+      results: patients.length,
+      data: {
+        patients,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
       status: "Failed",
-      message: "Invalid ID",
+      message: err,
     });
   }
-  next();
 };
 
-exports.checkBody = (req, res, next) => {
-  if (!req.body.name) {
-    return res.status(400).json({
+exports.getPatient = async (req, res) => {
+  try {
+    const patient = await Patient.findById(req.params.id);
+    // Patient.findOne({_id: req.params.id})
+    res.status(200).json({
+      status: "success",
+      data: {
+        patient,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
       status: "Failed",
-      message: "The name is missing",
+      message: err,
     });
   }
-  next();
 };
 
-exports.getAllPatients = (req, res) => {
-  res.status(200).json({
-    status: "success",
-    requestedAt: req.requestTime,
-    results: patients.length,
-    data: {
-      patients,
-    },
-  });
+exports.createPatient = async (req, res) => {
+  try {
+    const newPatient = await Patient.create(req.body);
+
+    res.status(201).json({
+      status: "success",
+      data: {
+        patient: newPatient,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failed",
+      message: "Invalid Input",
+    });
+  }
 };
 
-exports.getPatient = (req, res) => {
-  console.log(req.params);
+exports.updatePatient = async (req, res) => {
+  try {
+    const patient = await Patient.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
 
-  const id = req.params.id * 1; // A trick to convert the id from string to number
-  const patient = patients.find((el) => el.id === id); // call back function to compare the element
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      patient,
-    },
-  });
+    res.status(200).json({
+      status: "success",
+      data: {
+        patient,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "Failed",
+      message: err,
+    });
+  }
 };
 
-exports.createPatient = (req, res) => {
-  const newId = patients[patients.length - 1].id + 1;
-  const newPatient = Object.assign({ id: newId }, req.body);
-
-  patients.push(newPatient);
-  fs.writeFile(
-    `${__dirname}/dev-data/data/patients-simple.json`,
-    JSON.stringify(patients),
-    (err) => {
-      res.status(201).json({
-        status: "success",
-        data: {
-          patient: newPatient,
-        },
-      });
-    }
-  );
-};
-
-exports.updatePatient = (req, res) => {
-  res.status(200).json({
-    status: "success",
-    data: {
-      patient: "<Updated patient here...>",
-    },
-  });
-};
-
-exports.deletePatient = (req, res) => {
-  res.status(204).json({
-    // 204: No-Content
-    status: "success",
-    data: null,
-  });
+exports.deletePatient = async (req, res) => {
+  try {
+    await Patient.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "Failed",
+      message: err,
+    });
+  }
 };
