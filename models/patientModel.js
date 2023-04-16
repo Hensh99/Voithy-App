@@ -5,12 +5,33 @@ const patientSchema = new mongoose.Schema({
     type: String,
     required: [true, `The name of the patient is required`],
     unique: true,
+    trim: true,
   },
-  age: Number,
-  fees: {
+  gender: {
+    type: String,
+    required: [true, `The gender of the patient is required`],
+  },
+  bloodType: {
+    type: String,
+    required: [true, `The Blood Type of the patient is required`],
+  },
+  age: {
     type: Number,
-    required: [true, `The fees is required`],
+    default: 0,
   },
+  height: {
+    type: Number,
+    required: [true, `The height is required`],
+  },
+  weight: {
+    type: Number,
+    required: [true, `The weight is required`],
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
+  appointmentDates: [Date],
 });
 
 const Patient = mongoose.model("Patient", patientSchema);
