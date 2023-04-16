@@ -2,7 +2,23 @@ const Patient = require("./../models/patientModel");
 
 exports.getAllPatients = async (req, res) => {
   try {
-    const patients = await Patient.find();
+    // BUILD QUERY
+    const queryObj = { ...req.query };
+    const excludedFields = ["page", "sort", "limit", "fields"];
+    excludedFields.forEach((el) => delete queryObj[el]);
+
+    // Filtering: Pass conditional operator in parameter
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => {
+      `$${match}`;
+      console.log(JSON.parse(queryStr));
+    });
+
+    const query = Patient.find(JSON.parse(queryStr));
+    // EXECUTE QUERY
+    const patients = await query;
+
+    // RESPONSE
     res.status(200).json({
       status: "success",
       results: patients.length,
