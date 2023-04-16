@@ -16,7 +16,7 @@ mongoose.connect(DB).then((con) => {
 
 // READ JSON FILE.. json.parse to convert the data from json to js object
 const patients = JSON.parse(
-  fs.readFileSync(`${__dirname}/patients-simple.json", "utf-8"`)
+  fs.readFileSync(`${__dirname}/patients-simple.json`, "utf-8")
 );
 
 // IMPORT DATA INTO DB
