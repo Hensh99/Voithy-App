@@ -6,5 +6,13 @@
     "age": 23,
     "height": 189,
     "weight": 90
+  },
+  {
+    "name": "Asmaa",
+    "gender": "Female",
+    "bloodType": "B",
+    "age": 29,
+    "height": 167,
+    "weight": 55
   }
 ]
