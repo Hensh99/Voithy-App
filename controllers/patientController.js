@@ -1,28 +1,15 @@
 const Patient = require("./../models/patientModel");
+const APIFeatures = require("./../utils/apiFeatures");
 
 exports.getAllPatients = async (req, res) => {
   try {
-    // BUILD QUERY
-    const queryObj = { ...req.query };
-    const excludedFields = ["page", "sort", "limit", "fields"];
-    excludedFields.forEach((el) => delete queryObj[el]);
-
-    // Filtering: Pass conditional operator in parameter
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-
-    let query = Patient.find(JSON.parse(queryStr));
-
-    // Sorting
-    if (req.query.sort) {
-      const sortBy = req.query.sort.split(",").join(" ");
-      query = query.sort(sortBy);
-    } else {
-      query = query.sort("-createdAt");
-    }
-
     // EXECUTE QUERY
-    const patients = await query;
+    const features = new APIFeatures(Patient.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const patients = await features.query;
 
     // RESPONSE
     res.status(200).json({
