@@ -98,3 +98,38 @@ exports.deletePatient = async (req, res) => {
     });
   }
 };
+
+exports.getPatientStats = async (req, res) => {
+  try {
+    const stats = await Patient.aggregate([
+      {
+        $match: { age: { $gte: 15 } },
+      },
+      {
+        $group: {
+          _id: { $toUpper: "$age" },
+          numPatients: { $sum: 1 },
+          avgAge: { $avg: "$age" },
+          avgHeight: { $avg: "$height" },
+          avgWeight: { $avg: "$weight" },
+          minAge: { $min: "$age" },
+          maxAge: { $max: "$age" },
+        },
+      },
+      {
+        $sort: { minAge: 1 },
+      },
+    ]);
+    res.status(200).json({
+      status: "success",
+      data: {
+        stats,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "Failed",
+      message: err,
+    });
+  }
+};
