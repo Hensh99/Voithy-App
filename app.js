@@ -23,4 +23,11 @@ app.use((req, res, next) => {
 app.use("/api/v1/patients", patientRouter);
 app.use("/api/v1/users", userRouter);
 
+app.all("*", (req, res, next) => {
+  res.status(404).json({
+    status: "Failed",
+    message: `can't find ${req.originalUrl} on this server!`,
+  });
+});
+
 module.exports = app;
