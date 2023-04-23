@@ -33,8 +33,26 @@ const patientSchema = new mongoose.Schema({
     select: false,
   },
   appointmentDates: [Date],
+  secretPatient: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+// QUERY MIDDLEWARE
+patientSchema.pre(/^find/, function (next) {
+  this.find({ secretPatient: { $ne: true } });
+  this.start = Date.now();
+  next();
+});
+
+patientSchema.post(/^find/, function (docs, next) {
+  console.log(`Query took ${Date.now() - this.start} milliseconds!`);
+  next();
 });
 
 const Patient = mongoose.model("Patient", patientSchema);
 
 module.exports = Patient;
+
+// Four types of middleware in mongoose: document, query, aggregate and model middleware
