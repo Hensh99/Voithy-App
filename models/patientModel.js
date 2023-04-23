@@ -6,6 +6,8 @@ const patientSchema = new mongoose.Schema({
     required: [true, `The name of the patient is required`],
     unique: true,
     trim: true,
+    maxLength: [40, "Please try again, The maximum length is 40 characters"],
+    minLength: [15, "Please try again, The minimum length is 15 characters"],
   },
   gender: {
     type: String,
@@ -14,10 +16,16 @@ const patientSchema = new mongoose.Schema({
   bloodType: {
     type: String,
     required: [true, `The Blood Type of the patient is required`],
+    enum: {
+      values: ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"],
+      message: "please enter a valid blood type (e.g. A+,O-,..ETC)",
+    },
   },
   age: {
     type: Number,
     default: 0,
+    min: [0, `The minimum age is zero`],
+    max: [120, `The maximum age is 120`],
   },
   height: {
     type: Number,
@@ -38,6 +46,12 @@ const patientSchema = new mongoose.Schema({
     default: false,
   },
 });
+
+// DOCUMENT MIDDLEWARE: runs before .save() and .create()
+// patientSchema.pre("save", function (next) {
+//   this.slug = slugify(this.name, { lower: true });
+//   next();
+// });
 
 // QUERY MIDDLEWARE
 patientSchema.pre(/^find/, function (next) {
