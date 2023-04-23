@@ -58,7 +58,7 @@ exports.createPatient = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "Failed",
-      message: "Invalid Input",
+      message: err,
     });
   }
 };
