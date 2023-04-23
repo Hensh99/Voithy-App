@@ -51,6 +51,12 @@ patientSchema.post(/^find/, function (docs, next) {
   next();
 });
 
+// AGGREGATION MIDDLEWARE
+patientSchema.pre("aggregate", function (next) {
+  this.pipeline().unshift({ $match: { secretPatient: { $ne: true } } });
+  next();
+});
+
 const Patient = mongoose.model("Patient", patientSchema);
 
 module.exports = Patient;
