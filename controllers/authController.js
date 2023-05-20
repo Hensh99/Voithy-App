@@ -17,6 +17,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
     passwordChangedAt: req.body.passwordChangedAt,
+    role: req.body.role,
   });
 
   const token = signToken(newUser._id);
@@ -90,3 +91,13 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = validUser;
   next();
 });
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    // roles = [admin, development]. role = 'user'
+    if (!roles.includes(req.user.role)) {
+      return next(new AppError("permission denied", 403));
+    }
+    next();
+  };
+};
