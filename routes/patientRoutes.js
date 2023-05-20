@@ -15,6 +15,10 @@ router
   .route("/:id")
   .get(patientController.getPatient)
   .patch(patientController.updatePatient)
-  .delete(patientController.deletePatient);
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin", "development"),
+    patientController.deletePatient
+  );
 
 module.exports = router;
